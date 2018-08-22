@@ -9,7 +9,8 @@ class GameDisplay(object):
         lines = []
         lines.append(' '.join([str(x + 1) for x in range(self.board.columns)]))
         for row in self.board.board:
-            new_row = row.replace(' ', '  ')
+            new_row = ''.join([str(c) for c in row])
+            new_row = new_row.replace('0', '  ')
             new_row = new_row.replace('1', '\xAE ')
             new_row = new_row.replace('2', '\xA4 ')
             lines.append(new_row)
