@@ -15,9 +15,9 @@ def test_display_game_board():
         "1 2 3 4 5 6 7",
         "              ",
         "              ",
-        "®           ¤ ",
-        "¤ ® ¤ ¤ ® ¤ ® ",
-        "® ¤ ® ® ¤ ¤ ¤ ",
-        "¤ ® ¤ ¤ ¤ ® ¤ ",
+        "Y           R ",
+        "R Y R R Y R Y ",
+        "Y R Y Y R R R ",
+        "R Y R R R Y R ",
     ])
     assert g.display() == good_output
