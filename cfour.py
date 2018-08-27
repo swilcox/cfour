@@ -1,5 +1,4 @@
 
-
 class Board(object):
 
     player_1 = '1'
@@ -9,8 +8,9 @@ class Board(object):
     def __init__(self, columns=7, rows=6, to_win=4):
         self.columns = columns
         self.rows = rows
-        self.to_win = 4
-        self.board = [' ' * columns for x in range(rows)]
+        self.to_win = to_win
+        self.win_str = {p: p * self.to_win for p in self.players}
+        self.board = [['0' for x in range(columns)] for y in range(rows)]
         self.turn = self.player_1
         self.winner = ''
         self.is_game_over = False
@@ -20,20 +20,20 @@ class Board(object):
         columns = []
         if not self.is_game_over:
             for row in self.board[::-1]:
-                columns.extend([x for x, slot in enumerate(row) if slot == ' ' and x not in columns])
+                columns.extend([x for x, slot in enumerate(row) if slot == '0' and x not in columns])
         return columns
 
     def _check_row_win(self) -> str:
         for row in self.board:
             for player in self.players:
-                if player * self.to_win in row:
+                if self.win_str[player] in ''.join([c for c in row]):
                     return player
         return ''
 
     def _check_column_win(self) -> str:
         for column in range(self.columns):
             for player in self.players:
-                if player * self.to_win in ''.join([row[column] for row in self.board]):
+                if self.win_str[player] in ''.join([row[column] for row in self.board]):
                     return player
         return ''
 
@@ -43,7 +43,7 @@ class Board(object):
                 for player in self.players:
                     diag = ''.join([row[column + x] for x, row in enumerate(self.board[row_offset:]) if (column + x) < self.columns])
                     rev_diag = ''.join([row[-(column + x + 1)] for x, row in enumerate(self.board[row_offset:]) if -(column + x + 1) > -self.columns])
-                    if player * self.to_win in diag or player * self.to_win in rev_diag:
+                    if self.win_str[player] in diag or self.win_str[player] in rev_diag:
                         return player
         return ''
 
@@ -63,10 +63,9 @@ class Board(object):
     
     def move(self, column):
         if column in self.possible_moves:
-            for number, row in enumerate(self.board[::-1]):
-                if row[column] == ' ':
-                    new_row = row[:column] + self.turn + row[column + 1:]
-                    self.board[(self.rows - number) - 1] = new_row
+            for row in self.board[::-1]:
+                if row[column] == '0':
+                    row[column] = self.turn
                     self._check_game_over()
                     self._switch_turns()
                     return

@@ -1,17 +1,24 @@
 from cfour import Board
 
+PLAYER1_CHR = 'Y'
+PLAYER2_CHR = 'R'
+
 
 class GameDisplay(object):
+    """Game Display class. Initializes a board and displays status of the board."""
+
     def __init__(self):
         self.board = Board()
     
     def display(self):
+        """display the current status of the board"""
         lines = []
         lines.append(' '.join([str(x + 1) for x in range(self.board.columns)]))
         for row in self.board.board:
-            new_row = row.replace(' ', '  ')
-            new_row = new_row.replace('1', '\xAE ')
-            new_row = new_row.replace('2', '\xA4 ')
+            new_row = ''.join([c for c in row])
+            new_row = new_row.replace('0', '  ')
+            new_row = new_row.replace('1', f'{PLAYER1_CHR} ')
+            new_row = new_row.replace('2', f'{PLAYER2_CHR} ')
             lines.append(new_row)
         return '\n'.join(lines)
 
