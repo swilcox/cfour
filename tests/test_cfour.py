@@ -1,136 +1,132 @@
-import numpy as np
-
 from cfour import Board
 
 
 def test_board_init():
     board = Board()
-    assert np.array_equal(board.board, np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-    ]))
+    assert board.board == [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+    ]
     board = Board(columns=3, rows=3, to_win=3)
-    assert np.array_equal(board.board, np.array([
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0],
-    ]))
+    assert board.board == [
+        ['0', '0', '0'],
+        ['0', '0', '0'],
+        ['0', '0', '0'],
+    ]
 
 
 def test_board_move():
     board = Board()
     assert board.turn == board.player_1
     board.move(1)
-    assert np.array_equal(board.board[-1], np.array([0, 1, 0, 0, 0, 0, 0], dtype=int))
+    assert board.board[-1] == ['0', '1', '0', '0', '0', '0', '0']
     assert board.turn == board.player_2
 
 
 def test_board_bad_move():
     board = Board()
     board.move(8)
-    print(type(board.board[-1]))
-    print(board.board[-1])
-    assert np.array_equal(board.board[-1], np.array([0, 0, 0, 0, 0, 0, 0], dtype=int))
+    assert board.board[-1] == ['0', '0', '0', '0', '0', '0', '0']
 
 
 def test_check_row_win():
     board = Board()
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0, 0, 0],
-        [2, 1, 2, 1, 2, 2, 2],
-        [1, 2, 1, 2, 1, 2, 1],
-        [2, 1, 2, 1, 2, 2, 1],
-        [2, 2, 1, 2, 1, 1, 1],
-    ])
-    assert board._check_row_win() == 1
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [2, 1, 2, 1, 2, 0, 2],
-        [1, 2, 1, 2, 1, 0, 1],
-        [2, 2, 1, 2, 1, 0, 1],
-        [2, 2, 1, 1, 1, 1, 2],
-    ])
-    assert board._check_row_win() == 1
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['1', '1', '1', '1', '0', '0', '0'],
+        ['2', '1', '2', '1', '2', '2', '2'],
+        ['1', '2', '1', '2', '1', '2', '1'],
+        ['2', '1', '2', '1', '2', '2', '1'],
+        ['2', '2', '1', '2', '1', '1', '1'],
+    ]
+    assert board._check_row_win() == '1'
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['2', '1', '2', '1', '2', '0', '2'],
+        ['1', '2', '1', '2', '1', '0', '1'],
+        ['2', '2', '1', '2', '1', '0', '1'],
+        ['2', '2', '1', '1', '1', '1', '2'],
+    ]
+    assert board._check_row_win() == '1'
 
 
 def test_check_column_win():
     board = Board()
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 2, 0, 0, 0, 0],
-        [1, 1, 2, 1, 2, 2, 2],
-        [1, 2, 1, 2, 1, 2, 1],
-        [1, 1, 2, 1, 2, 2, 1],
-        [2, 2, 1, 2, 1, 1, 1],
-    ])
-    assert board._check_column_win() == 1
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 2, 0, 0, 1, 0],
-        [2, 1, 2, 1, 2, 2, 2],
-        [1, 2, 1, 2, 1, 2, 2],
-        [1, 1, 2, 1, 2, 2, 2],
-        [2, 2, 1, 2, 1, 1, 2],
-    ])
-    assert board._check_column_win() == 2
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['1', '1', '2', '0', '0', '0', '0'],
+        ['1', '1', '2', '1', '2', '2', '2'],
+        ['1', '2', '1', '2', '1', '2', '1'],
+        ['1', '1', '2', '1', '2', '2', '1'],
+        ['2', '2', '1', '2', '1', '1', '1'],
+    ]
+    assert board._check_column_win() == '1'
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['1', '1', '2', '0', '0', '1', '0'],
+        ['2', '1', '2', '1', '2', '2', '2'],
+        ['1', '2', '1', '2', '1', '2', '2'],
+        ['1', '1', '2', '1', '2', '2', '2'],
+        ['2', '2', '1', '2', '1', '1', '2'],
+    ]
+    assert board._check_column_win() == '2'
 
 
 def test_diagonal_win():
     board = Board()
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 2],
-        [2, 1, 2, 2, 1, 2, 1],
-        [2, 2, 1, 2, 1, 2, 2],
-        [2, 1, 2, 1, 2, 1, 2],
-    ])
-    assert board._check_diag_win() == 1
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['1', '0', '0', '0', '0', '0', '2'],
+        ['2', '1', '2', '2', '1', '2', '1'],
+        ['2', '2', '1', '2', '1', '2', '2'],
+        ['2', '1', '2', '1', '2', '1', '2'],
+    ]
+    assert board._check_diag_win() == '1'
 
 
 def test_rev_diagonal_win():
     board = Board()
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0, 2],
-        [2, 1, 2, 2, 1, 2, 1],
-        [1, 2, 1, 1, 2, 2, 2],
-        [2, 1, 2, 2, 2, 1, 2],
-    ])
-    assert board._check_diag_win() == 2
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['1', '0', '0', '0', '0', '0', '2'],
+        ['2', '1', '2', '2', '1', '2', '1'],
+        ['1', '2', '1', '1', '2', '2', '2'],
+        ['2', '1', '2', '2', '2', '1', '2'],
+    ]
+    assert board._check_diag_win() == '2'
 
 
 def test_no_win():
     board = Board()
-    assert board._check_column_win() == 0
-    assert board._check_row_win() == 0
-    assert board._check_diag_win() == 0
-    board.board = np.array([
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0],
-        [2, 1, 2, 2, 1, 2, 1],
-        [1, 2, 1, 1, 2, 2, 2],
-        [2, 1, 2, 2, 2, 1, 2],
-    ])
-    assert board._check_column_win() == 0
-    assert board._check_row_win() == 0
-    assert board._check_diag_win() == 0
-    board.board = np.array([
-        [1, 2, 1, 2, 1, 2, 1],
-        [2, 1, 2, 1, 2, 1, 2],
-        [2, 1, 2, 1, 2, 1, 2],
-        [2, 1, 2, 2, 1, 1, 1],
-        [1, 2, 1, 1, 2, 2, 2],
-        [2, 1, 2, 2, 2, 1, 2],
-    ])
-    assert board._check_column_win() == 0
-    assert board._check_row_win() == 0
-    assert board._check_diag_win() == 0
+    assert board._check_column_win() == ''
+    assert board._check_row_win() == ''
+    assert board._check_diag_win() == ''
+    board.board = [
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['0', '0', '0', '0', '0', '0', '0'],
+        ['2', '1', '2', '2', '1', '2', '1'],
+        ['1', '2', '1', '1', '2', '2', '2'],
+        ['2', '1', '2', '2', '2', '1', '2'],
+    ]
+    assert board._check_column_win() == ''
+    assert board._check_row_win() == ''
+    assert board._check_diag_win() == ''
+    board.board = [
+        ['1', '2', '1', '2', '1', '2', '1'],
+        ['2', '1', '2', '1', '2', '1', '2'],
+        ['2', '1', '2', '1', '2', '1', '2'],
+        ['2', '1', '2', '2', '1', '1', '1'],
+        ['1', '2', '1', '1', '2', '2', '2'],
+        ['2', '1', '2', '2', '2', '1', '2'],
+    ]
+    assert board._check_column_win() == ''
+    assert board._check_row_win() == ''
+    assert board._check_diag_win() == ''
