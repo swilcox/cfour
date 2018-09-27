@@ -1,3 +1,4 @@
+from termcolor import colored
 from cli_four import GameDisplay
 
 
@@ -20,4 +21,6 @@ def test_display_game_board():
         "Y R Y Y R R R ",
         "R Y R R R Y R ",
     ])
+    good_output = good_output.replace('Y ', colored('Y ', 'yellow'))
+    good_output = good_output.replace('R ', colored('R ', 'red'))
     assert g.display() == good_output
