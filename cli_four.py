@@ -1,7 +1,10 @@
+from termcolor import colored
 from cfour import Board
 
 PLAYER1_CHR = 'Y'
 PLAYER2_CHR = 'R'
+PLAYER1_COLOR = 'yellow'
+PLAYER2_COLOR = 'red'
 
 
 class GameDisplay(object):
@@ -17,8 +20,8 @@ class GameDisplay(object):
         for row in self.board.board:
             new_row = ''.join([c for c in row])
             new_row = new_row.replace('0', '  ')
-            new_row = new_row.replace('1', f'{PLAYER1_CHR} ')
-            new_row = new_row.replace('2', f'{PLAYER2_CHR} ')
+            new_row = new_row.replace('1', colored(f'{PLAYER1_CHR} ', PLAYER1_COLOR))
+            new_row = new_row.replace('2', colored(f'{PLAYER2_CHR} ', PLAYER2_COLOR))
             lines.append(new_row)
         return '\n'.join(lines)
 
