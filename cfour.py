@@ -1,11 +1,13 @@
 
 class Board(object):
+    """game status representation"""
 
     player_1 = '1'
     player_2 = '2'
     players = [player_1, player_2]
 
     def __init__(self, columns=7, rows=6, to_win=4):
+        """initialize the Board object"""
         self.columns = columns
         self.rows = rows
         self.to_win = to_win
@@ -17,6 +19,7 @@ class Board(object):
 
     @property
     def possible_moves(self) -> list:
+        """list of possible moves (list of column numbers)"""
         columns = []
         if not self.is_game_over:
             for row in self.board[::-1]:
@@ -24,6 +27,7 @@ class Board(object):
         return columns
 
     def _check_row_win(self) -> str:
+        """check for win in all rows"""
         for row in self.board:
             for player in self.players:
                 if self.win_str[player] in ''.join([c for c in row]):
@@ -31,6 +35,7 @@ class Board(object):
         return ''
 
     def _check_column_win(self) -> str:
+        """check for win in all columns"""
         for column in range(self.columns):
             for player in self.players:
                 if self.win_str[player] in ''.join([row[column] for row in self.board]):
@@ -38,6 +43,7 @@ class Board(object):
         return ''
 
     def _check_diag_win(self) -> str:
+        """check for diagonal win"""
         for column in range((self.columns - self.to_win) + 1):
             for row_offset in range((self.rows - self.to_win) + 1):
                 for player in self.players:
@@ -48,6 +54,7 @@ class Board(object):
         return ''
 
     def _check_game_over(self):
+        """check to see if the game is over"""
         winner = self._check_row_win() or self._check_column_win() or self._check_diag_win()
         if winner:
             self.turn = ''
@@ -58,10 +65,12 @@ class Board(object):
             self.is_game_over = True
 
     def _switch_turns(self):
+        """alternate turns"""
         if not self.is_game_over:
             self.turn = self.player_2 if self.turn == self.player_1 else self.player_1
     
     def move(self, column):
+        """execute a move"""
         if column in self.possible_moves:
             for row in self.board[::-1]:
                 if row[column] == '0':
