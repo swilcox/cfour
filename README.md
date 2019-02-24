@@ -11,7 +11,6 @@ Written in Python (3.6+)
 
 This project uses pipenv:
 
-In a python 3.6+ virtual environment:
 ```
 pipenv install -d
 ```
