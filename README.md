@@ -9,20 +9,22 @@ Written in Python (3.6+)
 
 ## Tests
 
+This project uses pipenv:
+
 In a python 3.6+ virtual environment:
 ```
-pip install -r requirements.txt
+pipenv install -d
 ```
 
 Then execute the tests:
 ```
-py.test
+pipenv run test
 ```
 
 ## CLI Frontend
 
 ```
-python cli_four.py
+pipenv run python cli_four.py
 ```
 
 ## TO-DO
@@ -34,3 +36,4 @@ python cli_four.py
 * move history/undo
 * docs
 * more tests
+
