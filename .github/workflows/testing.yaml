@@ -1,4 +1,4 @@
-name: CFour Testing
+name: Python
 
 on: [push, pull_request]
 
