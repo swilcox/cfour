@@ -1,8 +1,0 @@
-dist: xenial
-language: python
-python:
-  - "3.7"
-install:
-  - pipenv install -d --system
-script:
-  - pipenv run test
