@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/swilcox/cfour.svg?branch=master)](https://travis-ci.com/swilcox/cfour)
+[![Testing Status](https://github.com/swilcox/cfour/actions/workflows/testing.yaml/badge.svg)](https://github.com/swilcox/cfour/actions/workflows/testing.yaml)
 
 CFour
 =====
