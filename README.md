@@ -5,11 +5,11 @@ CFour
 
 A super simple connect four type game engine and a CLI frontend for using it.
 
-Written in Python (3.7+)
+Python (3.11+)
 
 ## Tests
 
-This project uses pipenv:
+This project uses [pdm](https://github.com/pdm-project/pdm):
 
 ```
 pdm install
