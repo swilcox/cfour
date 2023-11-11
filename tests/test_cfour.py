@@ -101,6 +101,8 @@ def test_rev_diagonal_win():
         ["2", "1", "2", "2", "2", "1", "2"],
     ]
     assert board._check_diag_win() == "2"
+    board._check_game_over()
+    assert board.is_game_over is True
 
 
 def test_no_win():
