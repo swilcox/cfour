@@ -1,9 +1,10 @@
 [project]
-requires-python = ">=3.7"
+name = "cfour"
+version = "0.2.0"
+requires-python = ">=3.11"
 dependencies = [
     "termcolor",
 ]
-[project.optional-dependencies]
 
 [tool.pdm]
 [[tool.pdm.source]]
@@ -14,13 +15,9 @@ verify_ssl = true
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest",
-    "python-lsp-black>=1.2.1",
+    "pytest-cov>=4.1.0",
 ]
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
-
-[pylsp.plugins]
-[[pylsp.plugins.black]]
-enabled = true
