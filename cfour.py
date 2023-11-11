@@ -1,4 +1,7 @@
-class Board(object):
+from copy import deepcopy
+
+
+class Board:
     """game status representation"""
 
     player_1 = "1"
@@ -15,6 +18,7 @@ class Board(object):
         self.turn = self.player_1
         self.winner = ""
         self.is_game_over = False
+        self._history = []
 
     @property
     def possible_moves(self) -> list:
@@ -30,6 +34,14 @@ class Board(object):
                     ]
                 )
         return columns
+
+    def board_as_str(self) -> str:
+        """slightly simplified view of board as a `\\n` separated string"""
+        return "\n".join(["".join(row) for row in self.board])
+
+    def history(self) -> list[list]:
+        """history implemented as method in case we need to manipulate anything later"""
+        return self._history
 
     def _check_row_win(self) -> str:
         """check for win in all rows"""
@@ -90,10 +102,12 @@ class Board(object):
 
     def move(self, column):
         """execute a move"""
+        saved_board = deepcopy(self.board)
         if column in self.possible_moves:
             for row in self.board[::-1]:
                 if row[column] == "0":
                     row[column] = self.turn
                     self._check_game_over()
                     self._switch_turns()
+                    self._history.insert(0, saved_board)
                     return
